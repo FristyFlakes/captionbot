@@ -24,12 +24,12 @@ async def start(bot, update):
    
 
 
-@pyrogram.Client.on_message(pyrogram.Filters.document) # @pyrogram.Client.on_message(pyrogram.Filters.document | Filters.video) set like this to trigger both or remove filters.document and add filters.video for video only
-async def old(client, update):
+@pyrogram.Client.on_message(pyrogram.Filters.document & ~Filters.edited) # @pyrogram.Client.on_message(pyrogram.Filters.document | Filters.video) set like this to trigger both or remove filters.document and add filters.video for video only
+async def old(bot, update):
     stock = update.caption
     join = Translation.CAP_TION
     output = stock + join
-    await client.edit_message_caption(
+    await bot.edit_message_caption(
         chat_id=update.chat.id,
         message_id=update.message_id,
         caption=output,
